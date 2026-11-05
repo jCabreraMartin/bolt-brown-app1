@@ -1,0 +1,127 @@
+scope: cloud-platform
+status: completed
+completed_at: "2026-11-05 15:35:00"
+source: .boltf/memory/cloud-platform-constitution.md
+articles:
+  - number: "VIII"
+    title: "Containers & Orchestration"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    reason: "Aligned with backend decisions (2026-11-05)"
+    sections:
+      "8.1": "Docker"
+      "8.2": "Azure Container Apps"
+      "8.3": "Skipped: not applicable (no AKS/K8s)"
+      "8.4": "KEDA enabled (Azure Service Bus, HTTP Request count); Dapr disabled"
+  - number: "VIII-B"
+    title: "Infrastructure Scope & Landing Zone Strategy"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    sections:
+      "8B.1": "Workload Infrastructure (user decision 2026-11-05 15:27)"
+      "8B.2": "Skipped: Landing Zone not selected"
+      "8B.3": "Compute: Azure Container Apps + Azure Static Web Apps; Data: PostgreSQL, Storage Accounts (no Redis); Integration: Azure Service Bus (no APIM, no App Gateway); Security: Key Vault, VNet, private endpoints (user approved 2026-11-05 15:28)"
+      "8B.4": "Modular approach: shared Terraform modules + per-environment configuration  (user decision 2026-11-05 15:29)"
+  - number: "IX"
+    title: "Infrastructure as Code"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    sections:
+      "9.1": "Terraform (resolved-from-prefill: decisions.cicd.iac-tool)"
+      "9.2": "Terraform structure: infra/terraform/modules + environments (dev, pre, prod) (recommended)"
+      "9.3": "Skipped: Landing Zone not selected"
+  - number: "VIII-C"
+    title: "Service Orchestration with .NET Aspire"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    sections:
+      "8C.1": "No - Aspire not adopted (user decision 2026-11-05 15:30)"
+      "8C.2-8C.5": "Skipped: Aspire not adopted"
+  - number: "XIV"
+    title: "GitOps & Declarative Deployment"
+    criticality: MEDIUM
+    status: refined
+    decision: exclude
+    reason: "GitOps not adopted: Azure Container Apps + GitHub Actions + Terraform (user decision 2026-11-05 15:31)"
+  - number: "XIV-B"
+    title: "FinOps & Cost Management"
+    criticality: MEDIUM
+    status: refined
+    decision: include
+    reason: "User approved 2026-11-05 15:32"
+  - number: "XIV-C"
+    title: "SRE & Reliability Engineering"
+    criticality: MEDIUM
+    status: refined
+    decision: include
+    reason: "User approved 2026-11-05 15:33"
+  - number: "XIV-D"
+    title: "Disaster Recovery & Business Continuity"
+    criticality: MEDIUM
+    status: refined
+    decision: include
+    reason: "User approved 2026-11-05 15:34"
+  - number: "X"
+    title: "Environments & Configuration"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.environments/config/secrets/feature-flags)"
+    sections:
+      "10.1": "Environments dev, pre, prod enabled (uat disabled); auto-deploy true for all"
+      "10.2": "Config files per environment (Terraform tfvars per environment)"
+      "10.3": "Azure Key Vault for secrets; local dev: user-secrets"
+      "10.4": "Feature flags: None"
+  - number: "XI"
+    title: "CI/CD Pipeline"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.cicd)"
+    sections:
+      "11.1": "GitHub Actions"
+      "11.2": "Infrastructure stages: iac-lint, iac-validation, security-scan, cost-estimation, compliance-check; deploy-dev, deploy-pre, deploy-prod"
+      "11.3": "Rolling Update"
+      "11.4": "GitHub Flow (see .boltf/docs/branching-strategy.md)"
+  - number: "XII"
+    title: "Observability"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.observability / infra-monitoring)"
+    sections:
+      "12.1": "OpenTelemetry -> Azure"
+      "12.2": "Health checks: /health, /health/ready, /health/live"
+      "12.3": "Infrastructure monitoring: resource-health, activity-logs"
+  - number: "XIII"
+    title: "Testing Standards (Infrastructure)"
+    criticality: MEDIUM
+    status: refined
+    decision: include
+    reason: "Bulk-accepted recommendation"
+  - number: "XV"
+    title: "Project Structure Templates (Infrastructure)"
+    criticality: LOW
+    status: refined
+    decision: modified
+    reason: "Bulk-accepted recommendation: Template F (Infrastructure Only - Workload) only; Template E (Landing Zone) excluded"
+  - number: "XVI"
+    title: "Security Policies"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.security)"
+    sections:
+      "16.1": "Azure VNet; Private Endpoints enabled; WAF none"
+      "16.2": "Azure-managed keys; TLS 1.2+; PII handling: Encryption"
+      "16.3": "GDPR required; HIPAA, SOC 2, PCI-DSS not required"
+  - number: "XIX"
+    title: "Governance"
+    criticality: LOW
+    status: refined
+    decision: include
+    reason: "Standard governance, included as-is"

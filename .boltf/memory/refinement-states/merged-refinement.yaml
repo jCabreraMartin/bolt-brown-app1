@@ -1,0 +1,506 @@
+# =============================================================================
+# Bolt Framework - Merged Refinement State
+# Generated: 2026-11-05 15:11:50
+# =============================================================================
+# This file contains the merged refinement decisions from all active scopes.
+# Used by constitution generation phase to create the final constitution.md
+# =============================================================================
+
+# Summary Statistics
+total_scopes: 3
+total_articles: 44
+total_decisions: 44
+included_count: 43
+excluded_count: 1
+merge_timestamp: 2026-11-05 15:11:50
+has_conflicts: False
+
+# Scopes
+scopes:
+  - scope: backend
+    articles_count: 17
+    decisions_count: 17
+    source_file: backend-refinement.yaml
+  - scope: cloud-platform
+    articles_count: 15
+    decisions_count: 15
+    source_file: cloud-platform-refinement.yaml
+  - scope: frontend
+    articles_count: 12
+    decisions_count: 12
+    source_file: frontend-refinement.yaml
+
+
+# =============================================================================
+# Detailed Scope Data
+# =============================================================================
+# Each scope's full refinement data is preserved below for reference.
+# The constitution generator will merge these based on the summary above.
+# =============================================================================
+
+scope_data:
+
+  # Scope: backend
+  backend:
+    scope: backend
+    status: completed
+    completed_at: "2026-11-05 15:17:00"
+    source: .boltf/memory/backend-constitution.md
+    total_articles: 18
+    articles:
+      - number: "II"
+        title: "Application Configuration"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        resolved_from: resolved-from-template
+        reason: ".NET 8 LTS locked by dotnet-8 template; API style chosen by user: Controllers (MVC)"
+        decided_at: "2026-11-05 14:50:00"
+        modified_content: |
+          ## Article II: Application Configuration
+    
+          ### Section 2.1: Backend Language & Runtime
+    
+          - Language: C# / .NET
+          - Version: .NET 8 (LTS), locked by the dotnet-8 template
+          - API Style: Controllers (MVC)
+      - number: "III"
+        title: "Application Architecture"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        sections:
+          "3.1": "Modular Monolith (user decision 2026-11-05 14:55)"
+          "3.3": "Simple CQRS, native .NET interfaces, NO MediatR (user decision 2026-11-05 14:56)"
+          "3.4": "Event Sourcing disabled (user decision 2026-11-05 14:57)"
+      - number: "IV"
+        title: "Communication"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        sections:
+          "4.1": "Hybrid (user decision 2026-11-05 14:58)"
+          "4.2": "REST API (user decision 2026-11-05 14:59)"
+          "4.3": "Broker: Azure Service Bus; Background processing: .NET BackgroundService (user decisions 2026-11-05 15:01)"
+          "4.3-broker": "Azure Service Bus"
+        status_note: "Article IV sections all decided"
+      - number: "V"
+        title: "Data Storage"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        sections:
+          "5.1": "PostgreSQL (user decision 2026-11-05 15:02)"
+          "5.2": "EF Core + Dapper (user decision 2026-11-05 15:03); repository: Yes (user decision 2026-11-05 15:04); unit-of-work: Yes (user decision 2026-11-05 15:05)"
+          "5.3": "EF Core Migrations (user decision 2026-11-05 15:06)"
+        status_note: "Article V all sections decided"
+      - number: "VII"
+        title: "Identity & Access Management"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        sections:
+          "7.1": "Microsoft Entra ID (user decision 2026-11-05 15:07)"
+          "7.2": "Mock IDP (user approved 2026-11-05 15:10)"
+          "7.3": "SPA Auth Code+PKCE: Yes; Mobile: No; Service-to-Service Client Credentials: Yes; Backend API JWT Bearer: Yes (user accepted recommendation 2026-11-05 15:09)"
+          "7.4": "Policy-Based (user decision 2026-11-05 15:08)"
+      - number: "VIII"
+        title: "Containers & Orchestration"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        sections:
+          "8.1": "Docker (user decision 2026-11-05 15:11)"
+          "8.2": "Azure Container Apps (user accepted recommendation 2026-11-05 15:12)"
+          "8.3": "Skipped: not applicable (no AKS/K8s)"
+          "8.4-keda": "Enabled; scalers: Azure Service Bus, HTTP Request count (user decision 2026-11-05 15:13)"
+          "8.4-dapr": "Disabled (user decision 2026-11-05 15:14)"
+        status_note: "Article VIII all sections decided"
+      - number: "XIII"
+        title: "Testing Standards"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        sections:
+          "13.1": "resolved-from-prefill (scopes.yaml): unit-test-coverage >= 80%, mutation-score >= 60% (overrides template 70%)"
+          "13.2": "xUnit; xUnit+Testcontainers; NetArchTest; Reqnroll; Playwright; k6 (user accepted 2026-11-05 15:15)"
+          "13.3": "Template .NET layout: {Module}.UnitTests, {Module}.IntegrationTests, Architecture.Tests, E2E.Tests, Common.Tests (user approved 2026-11-05 15:16)"
+        status_note: "Article XIII all sections decided"
+      - number: "XVII"
+        title: "Legacy & Migration"
+        criticality: MEDIUM
+        sections:
+          "17.1": "Brownfield (resolved-from-prefill: migration-type brown, source legacy)"
+          "17.2": "Strangler Fig (user accepted recommendation 2026-11-05 15:17)"
+        status: refined
+        decision: modified
+      - number: "VI"
+        title: "Caching Strategy"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "Bulk-accepted recommendations (user 2026-11-05 15:17)"
+        sections:
+          "6.1": "L1 IMemoryCache enabled (TTL 5 min); L2 disabled; L3 disabled"
+          "6.2": "None"
+          "6.3": "None"
+          "6.4": "Cache-Aside"
+      - number: "X"
+        title: "Environments & Configuration"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.environments/config/secrets/feature-flags)"
+        sections:
+          "10.1": "Environments dev, pre, prod enabled (uat disabled); auto-deploy true for all"
+          "10.2": "appsettings.{Environment}.json (config-files)"
+          "10.3": "Azure Key Vault for connection strings, API keys, certificates; local dev: User Secrets"
+          "10.4": "Feature flags: None"
+      - number: "XI"
+        title: "CI/CD Pipeline"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.cicd)"
+        sections:
+          "11.1": "GitHub Actions"
+          "11.2": "Stages: build (warnings as errors), lint-format, unit-tests (coverage >= 80%), integration-tests, architecture-tests, mutation-tests (score >= 60%), security-scan (0 Critical), container-build, container-scan (0 Critical); deploy-dev, deploy-pre, deploy-prod"
+          "11.3": "Rolling Update"
+          "11.4": "GitHub Flow (see .boltf/docs/branching-strategy.md)"
+      - number: "XII"
+        title: "Observability"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.observability)"
+        sections:
+          "12.1": "OpenTelemetry -> Azure"
+          "12.2": "Health checks: /health, /health/ready, /health/live"
+      - number: "XIV"
+        title: "Code Standards"
+        criticality: LOW
+        status: refined
+        decision: modified
+        reason: "Bulk-accepted recommendations (user 2026-11-05 15:17)"
+        sections:
+          "14.1": "C# naming: PascalCase types/members/namespaces, I-prefixed interfaces, _camelCase private fields, Async suffix"
+          "14.2": "4 spaces, 120 chars, file-scoped namespaces, nullable reference types enabled, .editorconfig + dotnet format"
+      - number: "XV"
+        title: "Project Structure Templates"
+        criticality: LOW
+        status: refined
+        decision: modified
+        reason: "Bulk-accepted recommendation: Template A (C# + Modular Monolith)"
+      - number: "XVI"
+        title: "Security Policies"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.security)"
+        sections:
+          "16.1": "Azure VNet; Private Endpoints enabled; WAF none"
+          "16.2": "Azure-managed keys; TLS 1.2+; PII handling: Encryption"
+          "16.3": "GDPR required; HIPAA, SOC 2, PCI-DSS not required"
+      - number: "XVIII"
+        title: "API Management"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "Bulk-accepted recommendations (user 2026-11-05 15:17)"
+        sections:
+          "18.1": "None (direct access; modular monolith)"
+          "18.2": "Rate limiting: No; API versioning: Yes, URL strategy"
+          "18.3": "OpenAPI/Swagger: Yes; AsyncAPI: Yes (Hybrid communication)"
+      - number: "XIX"
+        title: "Governance"
+        criticality: LOW
+        status: refined
+        decision: include
+        reason: "Standard governance, included as-is"
+    
+
+  # Scope: cloud-platform
+  cloud-platform:
+    scope: cloud-platform
+    status: completed
+    completed_at: "2026-11-05 15:35:00"
+    source: .boltf/memory/cloud-platform-constitution.md
+    articles:
+      - number: "VIII"
+        title: "Containers & Orchestration"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        reason: "Aligned with backend decisions (2026-11-05)"
+        sections:
+          "8.1": "Docker"
+          "8.2": "Azure Container Apps"
+          "8.3": "Skipped: not applicable (no AKS/K8s)"
+          "8.4": "KEDA enabled (Azure Service Bus, HTTP Request count); Dapr disabled"
+      - number: "VIII-B"
+        title: "Infrastructure Scope & Landing Zone Strategy"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        sections:
+          "8B.1": "Workload Infrastructure (user decision 2026-11-05 15:27)"
+          "8B.2": "Skipped: Landing Zone not selected"
+          "8B.3": "Compute: Azure Container Apps + Azure Static Web Apps; Data: PostgreSQL, Storage Accounts (no Redis); Integration: Azure Service Bus (no APIM, no App Gateway); Security: Key Vault, VNet, private endpoints (user approved 2026-11-05 15:28)"
+          "8B.4": "Modular approach: shared Terraform modules + per-environment configuration  (user decision 2026-11-05 15:29)"
+      - number: "IX"
+        title: "Infrastructure as Code"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        sections:
+          "9.1": "Terraform (resolved-from-prefill: decisions.cicd.iac-tool)"
+          "9.2": "Terraform structure: infra/terraform/modules + environments (dev, pre, prod) (recommended)"
+          "9.3": "Skipped: Landing Zone not selected"
+      - number: "VIII-C"
+        title: "Service Orchestration with .NET Aspire"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        sections:
+          "8C.1": "No - Aspire not adopted (user decision 2026-11-05 15:30)"
+          "8C.2-8C.5": "Skipped: Aspire not adopted"
+      - number: "XIV"
+        title: "GitOps & Declarative Deployment"
+        criticality: MEDIUM
+        status: refined
+        decision: exclude
+        reason: "GitOps not adopted: Azure Container Apps + GitHub Actions + Terraform (user decision 2026-11-05 15:31)"
+      - number: "XIV-B"
+        title: "FinOps & Cost Management"
+        criticality: MEDIUM
+        status: refined
+        decision: include
+        reason: "User approved 2026-11-05 15:32"
+      - number: "XIV-C"
+        title: "SRE & Reliability Engineering"
+        criticality: MEDIUM
+        status: refined
+        decision: include
+        reason: "User approved 2026-11-05 15:33"
+      - number: "XIV-D"
+        title: "Disaster Recovery & Business Continuity"
+        criticality: MEDIUM
+        status: refined
+        decision: include
+        reason: "User approved 2026-11-05 15:34"
+      - number: "X"
+        title: "Environments & Configuration"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.environments/config/secrets/feature-flags)"
+        sections:
+          "10.1": "Environments dev, pre, prod enabled (uat disabled); auto-deploy true for all"
+          "10.2": "Config files per environment (Terraform tfvars per environment)"
+          "10.3": "Azure Key Vault for secrets; local dev: user-secrets"
+          "10.4": "Feature flags: None"
+      - number: "XI"
+        title: "CI/CD Pipeline"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.cicd)"
+        sections:
+          "11.1": "GitHub Actions"
+          "11.2": "Infrastructure stages: iac-lint, iac-validation, security-scan, cost-estimation, compliance-check; deploy-dev, deploy-pre, deploy-prod"
+          "11.3": "Rolling Update"
+          "11.4": "GitHub Flow (see .boltf/docs/branching-strategy.md)"
+      - number: "XII"
+        title: "Observability"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.observability / infra-monitoring)"
+        sections:
+          "12.1": "OpenTelemetry -> Azure"
+          "12.2": "Health checks: /health, /health/ready, /health/live"
+          "12.3": "Infrastructure monitoring: resource-health, activity-logs"
+      - number: "XIII"
+        title: "Testing Standards (Infrastructure)"
+        criticality: MEDIUM
+        status: refined
+        decision: include
+        reason: "Bulk-accepted recommendation"
+      - number: "XV"
+        title: "Project Structure Templates (Infrastructure)"
+        criticality: LOW
+        status: refined
+        decision: modified
+        reason: "Bulk-accepted recommendation: Template F (Infrastructure Only - Workload) only; Template E (Landing Zone) excluded"
+      - number: "XVI"
+        title: "Security Policies"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.security)"
+        sections:
+          "16.1": "Azure VNet; Private Endpoints enabled; WAF none"
+          "16.2": "Azure-managed keys; TLS 1.2+; PII handling: Encryption"
+          "16.3": "GDPR required; HIPAA, SOC 2, PCI-DSS not required"
+      - number: "XIX"
+        title: "Governance"
+        criticality: LOW
+        status: refined
+        decision: include
+        reason: "Standard governance, included as-is"
+    
+
+  # Scope: frontend
+  frontend:
+    scope: frontend
+    status: completed
+    completed_at: "2026-11-05 15:25:00"
+    source: .boltf/memory/frontend-constitution.md
+    articles:
+      - number: "II"
+        title: "Application Configuration"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        sections:
+          "2.2": "Angular 20 (framework resolved-from-prefill; version user decision 2026-11-05 15:20)"
+          "2.3": "None (user decision 2026-11-05 15:21)"
+          "2.4": "None - HTML mockups only (resolved-from-prefill: decisions.frontend.design-tool none)"
+      - number: "III"
+        title: "Application Architecture"
+        criticality: HIGH
+        status: refined
+        decision: modified
+        sections:
+          "3.2": "Monolith SPA (user decision 2026-11-05 15:22)"
+      - number: "VII"
+        title: "Identity & Access Management (Frontend)"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        sections:
+          "7.3": "SPA Auth Code + PKCE: Yes; Mobile: No (user approved 2026-11-05 15:23)"
+          "7.4": "Policy-Based (user decision 2026-11-05 15:24)"
+      - number: "X"
+        title: "Environments & Configuration"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.environments/config/secrets/feature-flags)"
+        sections:
+          "10.1": "Environments dev, pre, prod enabled (uat disabled); auto-deploy true for all"
+          "10.2": "Config files (environment-specific, e.g. Angular environment files)"
+          "10.3": "Azure Key Vault for secrets; no secrets in the SPA bundle"
+          "10.4": "Feature flags: None"
+      - number: "XI"
+        title: "CI/CD Pipeline"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.cicd)"
+        sections:
+          "11.1": "GitHub Actions"
+          "11.2": "Stages: build, lint-format, unit-tests (coverage >= 80%), integration-tests, mutation-tests (score >= 60%), security-scan (0 Critical), container-build, container-scan; deploy-dev, deploy-pre, deploy-prod"
+          "11.3": "Rolling Update"
+          "11.4": "GitHub Flow (see .boltf/docs/branching-strategy.md)"
+      - number: "XII"
+        title: "Observability"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.observability)"
+        sections:
+          "12.1": "OpenTelemetry -> Azure"
+          "12.2": "Health checks: /health, /health/ready, /health/live"
+      - number: "XIII"
+        title: "Testing Standards (Frontend)"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "Bulk-accepted recommendations (user 2026-11-05 15:17); thresholds resolved-from-prefill"
+        sections:
+          "13.1": "Line coverage >= 80%, mutation score >= 60% (Stryker Mutator)"
+          "13.2": "Unit: Jest; Component: Testing Library (Angular); E2E: Playwright; Visual regression: Playwright; Performance: Lighthouse CI / Web Vitals"
+      - number: "XIV"
+        title: "Code Standards"
+        criticality: LOW
+        status: refined
+        decision: modified
+        reason: "Bulk-accepted recommendations"
+        sections:
+          "14.1": "Files kebab-case; classes/components PascalCase; functions/variables camelCase; constants UPPER_SNAKE_CASE"
+          "14.2": "2 spaces, 100 chars, semicolons yes, single quotes, ESLint + Prettier"
+      - number: "XVI"
+        title: "Security Policies"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "resolved-from-prefill (scopes.yaml decisions.security)"
+        sections:
+          "16.1": "Azure VNet; Private Endpoints enabled; WAF none"
+          "16.2": "Azure-managed keys; TLS 1.2+; PII handling: Encryption"
+          "16.3": "GDPR required; HIPAA, SOC 2, PCI-DSS not required"
+      - number: "XVII"
+        title: "Legacy & Migration"
+        criticality: MEDIUM
+        status: refined
+        decision: modified
+        reason: "17.1 resolved-from-prefill (brown); 17.2 consistent with backend recommendation"
+        sections:
+          "17.1": "Brownfield"
+          "17.2": "Strangler Fig"
+      - number: "XIX"
+        title: "Governance"
+        criticality: LOW
+        status: refined
+        decision: include
+        reason: "Standard governance, included as-is"
+      - number: "ADD"
+        title: "Proposed Additions - Frontend Gaps"
+        criticality: LOW
+        status: refined
+        decision: modified
+        reason: "Bulk-accepted recommendations: keep applicable items only"
+        modified_content: |
+          ## Frontend Additions
+    
+          - Accessibility (WCAG 2.2): enforced via axe-core + Playwright accessibility audits
+          - Performance budgets: Lighthouse CI in pipelines; Core Web Vitals via Azure Application Insights RUM
+          - Static hosting: Azure Static Web Apps; Azure CDN / Front Door for distribution
+          - Client-side error tracking: Azure Application Insights JavaScript SDK
+          - Excluded: Fluent UI (React/Blazor only), PWA support
+    
+
+
+# Cross-scope duplicates (merged into one section each in constitution.md; no contradictions)
+conflicts_resolved:
+  - { article: "VII", scopes: [backend, frontend], resolution: "merged; 7.3/7.4 consistent" }
+  - { article: "VIII", scopes: [backend, cloud-platform], resolution: "merged; identical decisions" }
+  - { article: "X", scopes: [backend, frontend, cloud-platform], resolution: "merged; per-scope config mechanism listed" }
+  - { article: "XI", scopes: [backend, frontend, cloud-platform], resolution: "merged; per-scope stages listed" }
+  - { article: "XII", scopes: [backend, frontend, cloud-platform], resolution: "merged; identical decisions" }
+  - { article: "XIII", scopes: [backend, frontend, cloud-platform], resolution: "merged; thresholds 80/60 consistent" }
+  - { article: "XV", scopes: [backend, cloud-platform], resolution: "Template A + Template F (Terraform variant)" }
+  - { article: "XVI", scopes: [backend, frontend, cloud-platform], resolution: "merged; identical decisions" }
+  - { article: "XVII", scopes: [backend, frontend], resolution: "merged; Brownfield + Strangler Fig" }
+  - { article: "XIX", scopes: [backend, frontend, cloud-platform], resolution: "merged; single governance section" }
+
+provisioned_skills:
+  source: plugins (no skill folders in .boltf/available-skills, only category READMEs)
+  copied_to_claude_skills: []
+  plugin_provided:
+    - dotnet-backend-patterns
+    - backend-testing-dotnet
+    - angular-primeng-frontend
+    - skill-playwright-e2e
+    - azure-identity-dotnet
+    - azure-role-selector
+    - azure-usage
+    - skill-environment-configuration-strategy
+    - skill-observability-azure
+    - skill-security-policies-azure
+    - skill-senior-devops
+    - skill-cicd-pipeline-azure
+    - skill-tdd-red-green-refactor
+    - skill-characterization-testing
+    - skill-bolt-branch-management

@@ -1,0 +1,117 @@
+scope: frontend
+status: completed
+completed_at: "2026-11-05 15:25:00"
+source: .boltf/memory/frontend-constitution.md
+articles:
+  - number: "II"
+    title: "Application Configuration"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    sections:
+      "2.2": "Angular 20 (framework resolved-from-prefill; version user decision 2026-11-05 15:20)"
+      "2.3": "None (user decision 2026-11-05 15:21)"
+      "2.4": "None - HTML mockups only (resolved-from-prefill: decisions.frontend.design-tool none)"
+  - number: "III"
+    title: "Application Architecture"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    sections:
+      "3.2": "Monolith SPA (user decision 2026-11-05 15:22)"
+  - number: "VII"
+    title: "Identity & Access Management (Frontend)"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    sections:
+      "7.3": "SPA Auth Code + PKCE: Yes; Mobile: No (user approved 2026-11-05 15:23)"
+      "7.4": "Policy-Based (user decision 2026-11-05 15:24)"
+  - number: "X"
+    title: "Environments & Configuration"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.environments/config/secrets/feature-flags)"
+    sections:
+      "10.1": "Environments dev, pre, prod enabled (uat disabled); auto-deploy true for all"
+      "10.2": "Config files (environment-specific, e.g. Angular environment files)"
+      "10.3": "Azure Key Vault for secrets; no secrets in the SPA bundle"
+      "10.4": "Feature flags: None"
+  - number: "XI"
+    title: "CI/CD Pipeline"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.cicd)"
+    sections:
+      "11.1": "GitHub Actions"
+      "11.2": "Stages: build, lint-format, unit-tests (coverage >= 80%), integration-tests, mutation-tests (score >= 60%), security-scan (0 Critical), container-build, container-scan; deploy-dev, deploy-pre, deploy-prod"
+      "11.3": "Rolling Update"
+      "11.4": "GitHub Flow (see .boltf/docs/branching-strategy.md)"
+  - number: "XII"
+    title: "Observability"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.observability)"
+    sections:
+      "12.1": "OpenTelemetry -> Azure"
+      "12.2": "Health checks: /health, /health/ready, /health/live"
+  - number: "XIII"
+    title: "Testing Standards (Frontend)"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "Bulk-accepted recommendations (user 2026-11-05 15:17); thresholds resolved-from-prefill"
+    sections:
+      "13.1": "Line coverage >= 80%, mutation score >= 60% (Stryker Mutator)"
+      "13.2": "Unit: Jest; Component: Testing Library (Angular); E2E: Playwright; Visual regression: Playwright; Performance: Lighthouse CI / Web Vitals"
+  - number: "XIV"
+    title: "Code Standards"
+    criticality: LOW
+    status: refined
+    decision: modified
+    reason: "Bulk-accepted recommendations"
+    sections:
+      "14.1": "Files kebab-case; classes/components PascalCase; functions/variables camelCase; constants UPPER_SNAKE_CASE"
+      "14.2": "2 spaces, 100 chars, semicolons yes, single quotes, ESLint + Prettier"
+  - number: "XVI"
+    title: "Security Policies"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.security)"
+    sections:
+      "16.1": "Azure VNet; Private Endpoints enabled; WAF none"
+      "16.2": "Azure-managed keys; TLS 1.2+; PII handling: Encryption"
+      "16.3": "GDPR required; HIPAA, SOC 2, PCI-DSS not required"
+  - number: "XVII"
+    title: "Legacy & Migration"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "17.1 resolved-from-prefill (brown); 17.2 consistent with backend recommendation"
+    sections:
+      "17.1": "Brownfield"
+      "17.2": "Strangler Fig"
+  - number: "XIX"
+    title: "Governance"
+    criticality: LOW
+    status: refined
+    decision: include
+    reason: "Standard governance, included as-is"
+  - number: "ADD"
+    title: "Proposed Additions - Frontend Gaps"
+    criticality: LOW
+    status: refined
+    decision: modified
+    reason: "Bulk-accepted recommendations: keep applicable items only"
+    modified_content: |
+      ## Frontend Additions
+
+      - Accessibility (WCAG 2.2): enforced via axe-core + Playwright accessibility audits
+      - Performance budgets: Lighthouse CI in pipelines; Core Web Vitals via Azure Application Insights RUM
+      - Static hosting: Azure Static Web Apps; Azure CDN / Front Door for distribution
+      - Client-side error tracking: Azure Application Insights JavaScript SDK
+      - Excluded: Fluent UI (React/Blazor only), PWA support

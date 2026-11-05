@@ -1,0 +1,175 @@
+scope: backend
+status: completed
+completed_at: "2026-11-05 15:17:00"
+source: .boltf/memory/backend-constitution.md
+total_articles: 18
+articles:
+  - number: "II"
+    title: "Application Configuration"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    resolved_from: resolved-from-template
+    reason: ".NET 8 LTS locked by dotnet-8 template; API style chosen by user: Controllers (MVC)"
+    decided_at: "2026-11-05 14:50:00"
+    modified_content: |
+      ## Article II: Application Configuration
+
+      ### Section 2.1: Backend Language & Runtime
+
+      - Language: C# / .NET
+      - Version: .NET 8 (LTS), locked by the dotnet-8 template
+      - API Style: Controllers (MVC)
+  - number: "III"
+    title: "Application Architecture"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    sections:
+      "3.1": "Modular Monolith (user decision 2026-11-05 14:55)"
+      "3.3": "Simple CQRS, native .NET interfaces, NO MediatR (user decision 2026-11-05 14:56)"
+      "3.4": "Event Sourcing disabled (user decision 2026-11-05 14:57)"
+  - number: "IV"
+    title: "Communication"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    sections:
+      "4.1": "Hybrid (user decision 2026-11-05 14:58)"
+      "4.2": "REST API (user decision 2026-11-05 14:59)"
+      "4.3": "Broker: Azure Service Bus; Background processing: .NET BackgroundService (user decisions 2026-11-05 15:01)"
+      "4.3-broker": "Azure Service Bus"
+    status_note: "Article IV sections all decided"
+  - number: "V"
+    title: "Data Storage"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    sections:
+      "5.1": "PostgreSQL (user decision 2026-11-05 15:02)"
+      "5.2": "EF Core + Dapper (user decision 2026-11-05 15:03); repository: Yes (user decision 2026-11-05 15:04); unit-of-work: Yes (user decision 2026-11-05 15:05)"
+      "5.3": "EF Core Migrations (user decision 2026-11-05 15:06)"
+    status_note: "Article V all sections decided"
+  - number: "VII"
+    title: "Identity & Access Management"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    sections:
+      "7.1": "Microsoft Entra ID (user decision 2026-11-05 15:07)"
+      "7.2": "Mock IDP (user approved 2026-11-05 15:10)"
+      "7.3": "SPA Auth Code+PKCE: Yes; Mobile: No; Service-to-Service Client Credentials: Yes; Backend API JWT Bearer: Yes (user accepted recommendation 2026-11-05 15:09)"
+      "7.4": "Policy-Based (user decision 2026-11-05 15:08)"
+  - number: "VIII"
+    title: "Containers & Orchestration"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    sections:
+      "8.1": "Docker (user decision 2026-11-05 15:11)"
+      "8.2": "Azure Container Apps (user accepted recommendation 2026-11-05 15:12)"
+      "8.3": "Skipped: not applicable (no AKS/K8s)"
+      "8.4-keda": "Enabled; scalers: Azure Service Bus, HTTP Request count (user decision 2026-11-05 15:13)"
+      "8.4-dapr": "Disabled (user decision 2026-11-05 15:14)"
+    status_note: "Article VIII all sections decided"
+  - number: "XIII"
+    title: "Testing Standards"
+    criticality: HIGH
+    status: refined
+    decision: modified
+    sections:
+      "13.1": "resolved-from-prefill (scopes.yaml): unit-test-coverage >= 80%, mutation-score >= 60% (overrides template 70%)"
+      "13.2": "xUnit; xUnit+Testcontainers; NetArchTest; Reqnroll; Playwright; k6 (user accepted 2026-11-05 15:15)"
+      "13.3": "Template .NET layout: {Module}.UnitTests, {Module}.IntegrationTests, Architecture.Tests, E2E.Tests, Common.Tests (user approved 2026-11-05 15:16)"
+    status_note: "Article XIII all sections decided"
+  - number: "XVII"
+    title: "Legacy & Migration"
+    criticality: MEDIUM
+    sections:
+      "17.1": "Brownfield (resolved-from-prefill: migration-type brown, source legacy)"
+      "17.2": "Strangler Fig (user accepted recommendation 2026-11-05 15:17)"
+    status: refined
+    decision: modified
+  - number: "VI"
+    title: "Caching Strategy"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "Bulk-accepted recommendations (user 2026-11-05 15:17)"
+    sections:
+      "6.1": "L1 IMemoryCache enabled (TTL 5 min); L2 disabled; L3 disabled"
+      "6.2": "None"
+      "6.3": "None"
+      "6.4": "Cache-Aside"
+  - number: "X"
+    title: "Environments & Configuration"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.environments/config/secrets/feature-flags)"
+    sections:
+      "10.1": "Environments dev, pre, prod enabled (uat disabled); auto-deploy true for all"
+      "10.2": "appsettings.{Environment}.json (config-files)"
+      "10.3": "Azure Key Vault for connection strings, API keys, certificates; local dev: User Secrets"
+      "10.4": "Feature flags: None"
+  - number: "XI"
+    title: "CI/CD Pipeline"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.cicd)"
+    sections:
+      "11.1": "GitHub Actions"
+      "11.2": "Stages: build (warnings as errors), lint-format, unit-tests (coverage >= 80%), integration-tests, architecture-tests, mutation-tests (score >= 60%), security-scan (0 Critical), container-build, container-scan (0 Critical); deploy-dev, deploy-pre, deploy-prod"
+      "11.3": "Rolling Update"
+      "11.4": "GitHub Flow (see .boltf/docs/branching-strategy.md)"
+  - number: "XII"
+    title: "Observability"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.observability)"
+    sections:
+      "12.1": "OpenTelemetry -> Azure"
+      "12.2": "Health checks: /health, /health/ready, /health/live"
+  - number: "XIV"
+    title: "Code Standards"
+    criticality: LOW
+    status: refined
+    decision: modified
+    reason: "Bulk-accepted recommendations (user 2026-11-05 15:17)"
+    sections:
+      "14.1": "C# naming: PascalCase types/members/namespaces, I-prefixed interfaces, _camelCase private fields, Async suffix"
+      "14.2": "4 spaces, 120 chars, file-scoped namespaces, nullable reference types enabled, .editorconfig + dotnet format"
+  - number: "XV"
+    title: "Project Structure Templates"
+    criticality: LOW
+    status: refined
+    decision: modified
+    reason: "Bulk-accepted recommendation: Template A (C# + Modular Monolith)"
+  - number: "XVI"
+    title: "Security Policies"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "resolved-from-prefill (scopes.yaml decisions.security)"
+    sections:
+      "16.1": "Azure VNet; Private Endpoints enabled; WAF none"
+      "16.2": "Azure-managed keys; TLS 1.2+; PII handling: Encryption"
+      "16.3": "GDPR required; HIPAA, SOC 2, PCI-DSS not required"
+  - number: "XVIII"
+    title: "API Management"
+    criticality: MEDIUM
+    status: refined
+    decision: modified
+    reason: "Bulk-accepted recommendations (user 2026-11-05 15:17)"
+    sections:
+      "18.1": "None (direct access; modular monolith)"
+      "18.2": "Rate limiting: No; API versioning: Yes, URL strategy"
+      "18.3": "OpenAPI/Swagger: Yes; AsyncAPI: Yes (Hybrid communication)"
+  - number: "XIX"
+    title: "Governance"
+    criticality: LOW
+    status: refined
+    decision: include
+    reason: "Standard governance, included as-is"

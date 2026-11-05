@@ -34,9 +34,15 @@ answers your need:
 Tier 0/1 are generated from `merged-refinement.yaml` by `skill-bolt-setup-constitution` (Phase 5).
 
 <!-- BOLT:SCOPE-CARD (generated from merged-refinement.yaml — do not edit by hand) -->
-> *Scope card and `constitution.digest.md` are generated during constitution setup
-> (`skill-bolt-setup-constitution` Phase 5). Until then (fresh/template project), read the full
-> `.boltf/memory/constitution.md`.*
+**Active scopes:** backend, frontend, cloud-platform (full-stack, brownfield)
+
+- **backend:** C# / .NET 8 (LTS), Controllers (MVC), Modular Monolith, Simple CQRS (native interfaces, NO MediatR), PostgreSQL via EF Core + Dapper, Azure Service Bus, Entra ID, Docker on Azure Container Apps
+- **frontend:** Angular 20 Monolith SPA (no mobile), Jest + Testing Library + Playwright
+- **cloud-platform:** Azure workload infrastructure with Terraform, GitHub Actions (GitHub Flow), OpenTelemetry to Azure, no Aspire, no GitOps
+
+**Naming/format:** backend C# PascalCase + `_camelCase` fields, 4 spaces, 120 cols, `dotnet format`; frontend kebab-case files, 2 spaces, 100 cols, ESLint + Prettier; infra Terraform modules + per-environment config.
+
+Read `.boltf/memory/constitution.digest.md` (Tier 1) before generating code.
 <!-- /BOLT:SCOPE-CARD -->
 
 ### Features (`specs/XXX-feature-name/`)
